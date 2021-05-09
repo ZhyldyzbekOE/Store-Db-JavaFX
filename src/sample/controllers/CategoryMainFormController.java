@@ -3,6 +3,7 @@ package sample.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -63,6 +65,9 @@ public class CategoryMainFormController {
         String nameDB;
         try {
             Statement statement;
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            databaseConnection.databaseConnection();
+            //statement = DatabaseConnection.connection.createStatement();
             statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT id, name, active FROM categories";
             ResultSet rs = statement.executeQuery(query);
@@ -79,15 +84,41 @@ public class CategoryMainFormController {
                 active.setCellValueFactory(new PropertyValueFactory<Categories, Integer>("active"));
                 table.setItems(list1);
             }
-            DatabaseConnection.connection.close();
+//            DatabaseConnection.connection.close();
+            databaseConnection.databaseClose();
         }catch (Exception e){
             e.printStackTrace();
         }
 
         // переход на окно добавления новой категории
         addCategoryButton.setOnAction(actionEvent -> {
+            table.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/sample/views/categoryAddForm.fxml"));
+            try {
+                loader.load();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            try {
+                DatabaseConnection.connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
+
+        editCategoryButton.setOnAction(actionEvent -> {
+
+        });
+
+        exitMainForm.setOnAction(actionEvent -> {
+            table.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/views/mainForm.fxml"));
             try {
                 loader.load();
             }catch (IOException e){

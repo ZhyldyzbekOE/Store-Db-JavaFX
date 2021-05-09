@@ -87,7 +87,7 @@ public class userRegistrationPage {
                 if (createNewAccount.createAccount(idUser,userLogin, userPassword)){
                     newUserRegistration.getScene().getWindow().hide();
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/sample/views/saleOperation.fxml"));
+                    loader.setLocation(getClass().getResource("/sample/views/sample.fxml"));
                     try{
                         loader.load();
                     }catch (IOException e){

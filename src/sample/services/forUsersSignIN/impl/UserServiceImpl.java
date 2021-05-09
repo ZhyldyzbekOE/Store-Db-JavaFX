@@ -8,14 +8,15 @@ import sample.services.forUsersSignIN.FindPassword;
 
 public class UserServiceImpl implements FindPassword, FindLogin, FindActiveAccount {
     DBservice dBservice = new DatabaseConnection();
-    Statement statement ;
     @Override
     public boolean loginUser(String login) {
         String loginUser;
+        ResultSet rs = null;
+        Statement statement = null;
         try{
             statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT login FROM accounts WHERE accounts.login = '"+login+"'";
-            ResultSet rs = statement.executeQuery(query);
+            rs = statement.executeQuery(query);
             loginUser = rs.getString("login");
             if (loginUser.equals(login)){
 //                rs.close();
@@ -29,10 +30,12 @@ public class UserServiceImpl implements FindPassword, FindLogin, FindActiveAccou
     }
     @Override
     public boolean passwordUser(String password) {
+        ResultSet rs = null;
+        Statement statement = null;
         try {
             statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT password FROM accounts WHERE accounts.password = '"+password+"'";
-            ResultSet rs = statement.executeQuery(query);
+            rs = statement.executeQuery(query);
             String passwordUser = rs.getString("password");
             if (passwordUser.equals(password)){
 //                rs.close();
@@ -47,20 +50,24 @@ public class UserServiceImpl implements FindPassword, FindLogin, FindActiveAccou
 
     @Override
     public boolean checkActiveAccount(String login) {
+        ResultSet resultSet = null;
+        Statement statement = null;
         try {
             statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT active FROM accounts WHERE accounts.login = '"+login+"'";
-            ResultSet resultSet = statement.executeQuery(query);
+            resultSet = statement.executeQuery(query);
 
             int active = resultSet.getInt("active");
-
             if (active == 1){
                 return true;
-            }else {
+            }else if (active == 0){
                 return false;
             }
+//            else {
+//                return false;
+//            }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println("Неверные данные!");
         }
         return false;
     }

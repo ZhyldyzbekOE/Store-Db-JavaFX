@@ -15,7 +15,7 @@ public class FindUserIdForAccountImpl implements FindUserIdForAccount {
             Statement statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT id FROM users WHERE users.name = '"+newUserName+"'";
             ResultSet rs = statement.executeQuery(query);
-            DatabaseConnection.connection.close();
+//            DatabaseConnection.connection.close();
             while (rs.next()){
                 id = rs.getInt("id");
             }

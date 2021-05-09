@@ -16,7 +16,7 @@ public class InsertNewUserImpl implements InsertNewUser {
             String query = "INSERT INTO users (name) VALUES ('"+newUser.getName()+"')";
             Statement statement = DatabaseConnection.connection.createStatement();
             statement.executeUpdate(query);
-            DatabaseConnection.connection.close();
+//            DatabaseConnection.connection.close();
             return true;
         }catch (Exception e){
             System.out.println(e.getMessage());

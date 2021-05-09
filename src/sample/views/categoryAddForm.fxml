@@ -28,7 +28,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="cotegoryName" layoutX="342.0" layoutY="131.0" prefHeight="26.0" prefWidth="222.0" promptText="                       название" />
+      <TextField fx:id="cotegoryName" layoutX="342.0" layoutY="131.0" prefHeight="26.0" prefWidth="222.0" promptText="                       название" style="-fx-background-radius: 6;" />
       <CheckBox fx:id="activeCheck" layoutX="403.0" layoutY="212.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="83.0" text="Активен">
          <font>
             <Font size="14.0" />
