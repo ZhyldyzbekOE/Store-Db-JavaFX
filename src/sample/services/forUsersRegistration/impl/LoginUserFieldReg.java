@@ -12,16 +12,18 @@ import java.util.ArrayList;
 public class LoginUserFieldReg implements CorrectUserRegistration {
 
     DBservice dBservice = new DatabaseConnection();
-    Statement statement;
+//    Statement statement = null;
 
     @Override
     public boolean userRegistration(String userLoginPassword) {
         String loginUser;
+        Statement statement = null;
+        ResultSet rs = null;
         ArrayList<String> userLogins = new ArrayList<>();
         try {
             statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT login FROM accounts";
-            ResultSet rs = statement.executeQuery(query);
+            rs = statement.executeQuery(query);
             while (rs.next()){
                 loginUser = rs.getString("login");
                 userLogins.add(loginUser);
@@ -34,6 +36,13 @@ public class LoginUserFieldReg implements CorrectUserRegistration {
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.WARNING,"Такой аккаунт уже существует!");
             alert.show();
+        }finally {
+            try {
+                statement.close();
+                rs.close();
+            }catch (Exception e){
+
+            }
         }
         return false;
     }

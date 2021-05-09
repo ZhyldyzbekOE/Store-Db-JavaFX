@@ -61,16 +61,18 @@ public class CategoryMainFormController {
 
         ObservableList<Categories> list1 = FXCollections.observableArrayList();
 
+        Statement statement = null;
+        ResultSet rs = null;
         int idDB, activeDB;
         String nameDB;
         try {
-            Statement statement;
+
             DatabaseConnection databaseConnection = new DatabaseConnection();
             databaseConnection.databaseConnection();
             //statement = DatabaseConnection.connection.createStatement();
             statement = DatabaseConnection.connection.createStatement();
             String query = "SELECT id, name, active FROM categories";
-            ResultSet rs = statement.executeQuery(query);
+            rs = statement.executeQuery(query);
             while (rs.next()){
                 idDB = rs.getInt("id");
                 nameDB = rs.getString("name");
@@ -84,10 +86,17 @@ public class CategoryMainFormController {
                 active.setCellValueFactory(new PropertyValueFactory<Categories, Integer>("active"));
                 table.setItems(list1);
             }
-//            DatabaseConnection.connection.close();
             databaseConnection.databaseClose();
         }catch (Exception e){
             e.printStackTrace();
+        }
+        finally {
+            try {
+                statement.close();
+                rs.close();
+            }catch (Exception e){
+
+            }
         }
 
         // переход на окно добавления новой категории

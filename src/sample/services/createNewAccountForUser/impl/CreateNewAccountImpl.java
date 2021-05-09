@@ -11,8 +11,9 @@ public class CreateNewAccountImpl implements CreateNewAccount {
 
     @Override
     public boolean createAccount(int id, String login, String password) {
+        Statement statement = null;
         try {
-            Statement statement;
+//            Statement statement;
             Accounts accounts = new Accounts(id, login, password, 1);
             String query = "INSERT INTO accounts (user_id, login, password, active) " +
             "VALUES ('"+accounts.getUserId()+"','"+accounts.getLogin()+"','"+accounts.getPassword()+"','"+accounts.getActive()+"')";
@@ -21,6 +22,12 @@ public class CreateNewAccountImpl implements CreateNewAccount {
             return true;
         }catch (Exception e){
             System.out.println(e.getMessage());
+        }finally {
+            try {
+                statement.close();
+            }catch (Exception e){
+
+            }
         }
         return false;
     }

@@ -25,6 +25,13 @@ public class UserServiceImpl implements FindPassword, FindLogin, FindActiveAccou
             }
         }catch (Exception e){
             System.out.println("Неверный логин!");
+        }finally {
+            try {
+                statement.close();
+                rs.close();
+            }catch (Exception e){
+
+            }
         }
         return false;
     }
@@ -44,7 +51,15 @@ public class UserServiceImpl implements FindPassword, FindLogin, FindActiveAccou
             }
         }catch (Exception e){
             System.out.println("Неверный пароль");
+        }finally {
+            try {
+                statement.close();
+                rs.close();
+            }catch (Exception e){
+
+            }
         }
+
         return false;
     }
 
@@ -68,6 +83,14 @@ public class UserServiceImpl implements FindPassword, FindLogin, FindActiveAccou
 //            }
         } catch (SQLException throwables) {
             System.out.println("Неверные данные!");
+        }
+        finally {
+            try {
+                statement.close();
+                resultSet.close();
+            }catch (Exception e){
+
+            }
         }
         return false;
     }

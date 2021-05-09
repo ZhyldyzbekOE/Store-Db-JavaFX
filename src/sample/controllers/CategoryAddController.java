@@ -44,31 +44,45 @@ public class CategoryAddController {
     // добавление новой категории
     @FXML
     void initialize() throws SQLException {
-
         saveNewCotegory.setOnAction(actionEvent -> {
             DBservice dBservice = new DatabaseConnection();
             dBservice.databaseConnection();
             String newNameCategory = cotegoryName.getText().trim();
+            if (newNameCategory.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Категория не может быть пустой!");
+                alert.show();
+                return;
+            }
             System.out.println(newNameCategory);
             int newActiveCategory;
-            if (activeCheck.isSelected()){
+            if (activeCheck.isSelected()) {
                 newActiveCategory = 1;
-            }else {
+            } else {
                 newActiveCategory = 0;
             }
             System.out.println(newActiveCategory);
+            Statement statement = null;
+
             try {
                 Categories categories = new Categories(newNameCategory, newActiveCategory);
                 System.out.println(categories);
-                String query = "insert into categories(name, active) VALUES('"+categories.getName()+"', '"+categories.getActive()+"')";
-                Statement statement = DatabaseConnection.connection.createStatement();
+                String query = "insert into categories(name, active) VALUES('" + categories.getName() + "', '" + categories.getActive() + "')";
+                statement = DatabaseConnection.connection.createStatement();
                 statement.executeUpdate(query);
-                Alert alert = new Alert(Alert.AlertType.WARNING,"Категория успешно создана!");
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Категория успешно создана!");
                 alert.show();
-                dBservice.databaseClose();
+//                dBservice.databaseClose();
                 return;
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
+            }
+            finally {
+                try {
+                    statement.close();
+                    dBservice.databaseClose();
+                }catch (Exception e){
+                    System.out.println("Опять");
+                }
             }
         });
 
@@ -78,7 +92,7 @@ public class CategoryAddController {
             loader.setLocation(getClass().getResource("/sample/views/categoryMainForm.fxml"));
             try {
                 loader.load();
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             Parent root = loader.getRoot();
