@@ -35,9 +35,6 @@ public class CategoryMainFormController {
     private MenuItem addCategoryButton;
 
     @FXML
-    private MenuItem deleteCategoryButton;
-
-    @FXML
     private Menu menuButton;
 
     @FXML
@@ -54,6 +51,9 @@ public class CategoryMainFormController {
 
     @FXML
     private TableColumn<Categories, Integer> active;
+
+    @FXML
+    private MenuItem helpAbout;
 
     // вывод категорий на экран в таблицу
     @FXML
@@ -85,6 +85,8 @@ public class CategoryMainFormController {
                 name.setCellValueFactory(new PropertyValueFactory<Categories, String>("name"));
                 active.setCellValueFactory(new PropertyValueFactory<Categories, Integer>("active"));
                 table.setItems(list1);
+
+
             }
             databaseConnection.databaseClose();
         }catch (Exception e){
@@ -121,6 +123,26 @@ public class CategoryMainFormController {
         });
 
         editCategoryButton.setOnAction(actionEvent -> {
+            Categories categories = table.getSelectionModel().getSelectedItem();
+            if (categories == null){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Чтобы отредактивировать, выберете категорию");
+                alert.show();
+                return;
+            }
+            table.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/views/categoryEditForm.fxml"));
+            try {
+                loader.load();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            CategoryEditForm categoryAddController = loader.getController();
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            categoryAddController.initDataToEditCategory(stage, categories);
+            stage.show();
 
         });
 
@@ -128,6 +150,20 @@ public class CategoryMainFormController {
             table.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/sample/views/mainForm.fxml"));
+            try {
+                loader.load();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        });
+
+        helpAbout.setOnAction(actionEvent -> {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/views/helpAbout.fxml"));
             try {
                 loader.load();
             }catch (IOException e){

@@ -17,11 +17,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.models.Categories;
 import sample.models.Users;
-
 import sample.services.database.DBservice;
 import sample.services.database.DatabaseConnection;
+import sample.services.findCategoryID.CategoryFindID;
+import sample.services.findCategoryID.impl.CategoryFindIDImpl;
 
 public class CategoryAddController {
+
+
 
     @FXML
     private ResourceBundle resources;
@@ -62,7 +65,6 @@ public class CategoryAddController {
             }
             System.out.println(newActiveCategory);
             Statement statement = null;
-
             try {
                 Categories categories = new Categories(newNameCategory, newActiveCategory);
                 System.out.println(categories);
@@ -71,6 +73,7 @@ public class CategoryAddController {
                 statement.executeUpdate(query);
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Категория успешно создана!");
                 alert.show();
+                cotegoryName.clear();
 //                dBservice.databaseClose();
                 return;
             } catch (Exception e) {
@@ -101,4 +104,5 @@ public class CategoryAddController {
             stage.show();
         });
     }
+
 }

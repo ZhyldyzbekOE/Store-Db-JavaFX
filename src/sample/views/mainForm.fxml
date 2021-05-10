@@ -26,15 +26,15 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Кнопка" GridPane.rowIndex="1">
+            <Button fx:id="productsButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Товары" GridPane.rowIndex="1">
                <font>
                   <Font size="17.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Кнопка" GridPane.rowIndex="2">
+            <Button fx:id="priceButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Цены" GridPane.rowIndex="2">
                <font>
                   <Font size="17.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Кнопка" GridPane.columnIndex="1">
+            <Button fx:id="usersButtton" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Пользователи" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font></Button>
@@ -42,7 +42,7 @@
                <font>
                   <Font size="17.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Кнопка" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="saleButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" style="-fx-background-radius: 6;" text="Продажа" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="17.0" />
                </font></Button>

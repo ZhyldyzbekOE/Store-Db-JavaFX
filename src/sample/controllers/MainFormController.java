@@ -26,7 +26,19 @@ public class MainFormController {
     private Button categoriesINButton;
 
     @FXML
+    private Button productsButton;
+
+    @FXML
+    private Button priceButton;
+
+    @FXML
+    private Button usersButtton;
+
+    @FXML
     private Button exitSignInButton;
+
+    @FXML
+    private Button saleButton;
 
     // главное окно, переход по кнопкам
     @FXML

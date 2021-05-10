@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.CategoryMainFormController">
    <center>
       <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -28,11 +27,15 @@
           </Menu>
           <Menu fx:id="menuButton" mnemonicParsing="false" text="Редактировать">
             <items>
-              <MenuItem fx:id="addCategoryButton" mnemonicParsing="false" text="Добавить " />
-                  <MenuItem fx:id="deleteCategoryButton" mnemonicParsing="false" text="Удалить" />
-                  <MenuItem fx:id="editCategoryButton" mnemonicParsing="false" text="Редактировать" />
+              <MenuItem fx:id="addCategoryButton" mnemonicParsing="false" text="Добавить категорию" />
+                  <MenuItem fx:id="editCategoryButton" mnemonicParsing="false" text="Редактировать категорию" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Помощь">
+               <items>
+                  <MenuItem fx:id="helpAbout" mnemonicParsing="false" text="Справка" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>
