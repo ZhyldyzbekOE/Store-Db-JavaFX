@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -60,7 +59,6 @@ public class CategoryMainFormController {
     void initialize() {
 
         ObservableList<Categories> list1 = FXCollections.observableArrayList();
-
         Statement statement = null;
         ResultSet rs = null;
         int idDB, activeDB;
@@ -85,9 +83,17 @@ public class CategoryMainFormController {
                 name.setCellValueFactory(new PropertyValueFactory<Categories, String>("name"));
                 active.setCellValueFactory(new PropertyValueFactory<Categories, Integer>("active"));
                 table.setItems(list1);
-
-
             }
+            table.setRowFactory(t -> new TableRow<Categories>(){
+                protected void updateItem(Categories categories, boolean e){
+                    super.updateItem(categories, e);
+                    if (categories!=null && categories.getActive() != 1){
+                        setStyle("-fx-background-color: #ff9999;");
+                    }else {
+                        setStyle("");
+                    }
+                }
+            });
             databaseConnection.databaseClose();
         }catch (Exception e){
             e.printStackTrace();

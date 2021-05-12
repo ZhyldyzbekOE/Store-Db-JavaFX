@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.OutputUserAndLoginController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Выход" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Редактировать">
+               <items>
+                  <MenuItem fx:id="editUser" mnemonicParsing="false" text="Редактировать пользователя" />
+                  <MenuItem fx:id="deactUser" mnemonicParsing="false" text="Активация/Деактивация" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="name" prefWidth="200.800048828125" text="Имя пользователя" />
+            <TableColumn fx:id="login" prefWidth="261.5999755859375" text="Логин пользователя" />
+            <TableColumn fx:id="active" prefWidth="136.0" text="Активность" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>

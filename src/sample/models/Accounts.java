@@ -6,6 +6,8 @@ public class Accounts {
     private String login;
     private String password;
     private int active;
+    private Users users;
+    private String name;
 
     public Accounts() { }
 
@@ -14,6 +16,33 @@ public class Accounts {
         this.login = login;
         this.password = password;
         this.active = active;
+    }
+
+    public Accounts(String login, String users, int active, int userId) {
+        this.login = login;
+        this.name = users;
+        this.active = active;
+        this.userId = userId;
+    }
+
+    public Accounts(String login, int active, int userId) {
+        this.login = login;
+        this.active = active;
+        this.userId = userId;
+    }
+
+    public Accounts(String login, String users, int active) {
+        this.login = login;
+        this.name = users;
+        this.active = active;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     public int getUserId() {
@@ -46,5 +75,13 @@ public class Accounts {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

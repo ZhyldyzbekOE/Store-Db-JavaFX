@@ -9,7 +9,6 @@ public class DatabaseConnection implements DBservice {
         Connection connection = getConnection();
         System.out.println("Connection");
     }
-
     private Connection getConnection() {
         try{
             Class.forName("org.sqlite.JDBC");
