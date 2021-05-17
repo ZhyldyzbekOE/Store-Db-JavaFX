@@ -28,9 +28,9 @@
    <center>
       <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="name" prefWidth="200.800048828125" text="Имя пользователя" />
-            <TableColumn fx:id="login" prefWidth="261.5999755859375" text="Логин пользователя" />
-            <TableColumn fx:id="active" prefWidth="136.0" text="Активность" />
+          <TableColumn fx:id="name" prefWidth="254.4000244140625" text="Имя пользователя" />
+            <TableColumn fx:id="login" prefWidth="264.79998779296875" text="Логин пользователя" />
+            <TableColumn fx:id="active" prefWidth="81.60003662109375" text="Активность" />
         </columns>
       </TableView>
    </center>

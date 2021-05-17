@@ -23,6 +23,7 @@ public class CategoryFindIDImpl implements CategoryFindID {
 //            DatabaseConnection.connection.close();
             id = rs.getInt("id");
         }catch (Exception e){
+            System.out.println("Вот тут");
             e.printStackTrace();
         }finally {
             try {

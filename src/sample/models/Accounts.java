@@ -25,6 +25,15 @@ public class Accounts {
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return "Accounts{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", active=" + active +
+                '}';
+    }
+
     public Accounts(String login, int active, int userId) {
         this.login = login;
         this.active = active;
@@ -84,4 +93,6 @@ public class Accounts {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

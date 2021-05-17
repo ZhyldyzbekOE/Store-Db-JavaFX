@@ -51,6 +51,7 @@ public class OutputUserAndLoginController {
     @FXML
     void initialize() {
 
+        outPut();
         exitButton.setOnAction(actionEvent -> {
             table.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
@@ -65,27 +66,84 @@ public class OutputUserAndLoginController {
             stage.setScene(new Scene(parent));
             stage.show();
         });
+//        deactUser.setOnAction(actionEvent -> {
+//            Accounts accounts = table.getSelectionModel().getSelectedItem();
+//            if (accounts == null){
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Чтобы деактивировать, выберете пользователя!");
+//                alert.show();
+//                return;
+//            }
+//            table.getScene().getWindow().hide();
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("/sample/views/deactUser.fxml"));
+//            try {
+//                loader.load();
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//            DeactUserController editActiveUserAccountD = loader.getController();
+//            Parent parent = loader.getRoot();
+//            Stage stage = new Stage();
+//            stage.setScene(new Scene(parent));
+//            editActiveUserAccountD.initDataToEditCategory(stage, accounts);
+//            stage.show();
+//        });
+
         deactUser.setOnAction(actionEvent -> {
             Accounts accounts = table.getSelectionModel().getSelectedItem();
             if (accounts == null){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Чтобы деактивировать, выберете пользователя!");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Чтобы Де/Активировать, выберете пользователя!");
                 alert.show();
                 return;
             }
-            table.getScene().getWindow().hide();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/views/deactUser.fxml"));
-            try {
-                loader.load();
-            }catch (IOException e){
-                e.printStackTrace();
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            databaseConnection.databaseConnection();
+            int changeActive;
+            String userName = accounts.getName();
+            System.out.println(userName);
+            String userLogin = accounts.getLogin();
+            System.out.println(userLogin);
+            int activeUser = accounts.getActive();
+            System.out.println(activeUser);
+            if (activeUser == 1){
+                changeActive = 0;
+                System.out.println("изменил "+changeActive);
+                int id = selectIdUser(userName);
+                Accounts accounts1 = new Accounts(userLogin, changeActive, id);
+                System.out.println("update acc "+accounts1);
+                if (updateActive(accounts1)){
+                    if (accounts1.getActive() == 0 ){
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Аккаунт успешно деактивирован!");
+                        alert.show();
+                        alert.setOnCloseRequest(windowEvent -> {
+                            outPut();
+                            table.refresh();
+                        });
+                    }
+                }else {
+                    System.out.println("update вернул false");
+                }
             }
-            DeactUserController editActiveUserAccountD = loader.getController();
-            Parent parent = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(parent));
-            editActiveUserAccountD.initDataToEditCategory(stage, accounts);
-            stage.show();
+            if (activeUser == 0){
+                changeActive = 1;
+                System.out.println("изменил "+changeActive);
+                int id = selectIdUser(userName);
+                Accounts accounts1 = new Accounts(userLogin, changeActive, id);
+                System.out.println("update accAct "+accounts1);
+                if (updateActive(accounts1)){
+                    if (accounts1.getActive() == 1){
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Аккаунт успешно активирован!");
+                        alert.show();
+                        alert.setOnCloseRequest(windowEvent -> {
+                            outPut();
+                            table.refresh();
+                        });
+                    }
+                }
+                else {
+                    System.out.println("update вернул false");
+                }
+            }
         });
         editUser.setOnAction(actionEvent -> {
             Accounts accounts = table.getSelectionModel().getSelectedItem();
@@ -109,6 +167,9 @@ public class OutputUserAndLoginController {
             editActiveUserAccount.initDataToEditCategory(stage, accounts);
             stage.show();
         });
+
+    }
+    public void outPut(){
         ObservableList<Accounts> accountsObservableList = FXCollections.observableArrayList();
         Statement statement = null;
         ResultSet rs = null;
@@ -153,6 +214,54 @@ public class OutputUserAndLoginController {
             }catch (Exception e){
             }
         }
+    }
+
+    public int selectIdUser(String userName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int id = 0;
+        try {
+            statement = DatabaseConnection.connection.createStatement();
+            String query = "SELECT id FROM users WHERE users.name = '"+userName+"'";
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                id = resultSet.getInt("id");
+            }
+            System.out.println(id + "для редактирования");
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+//                System.out.println("Во туту");
+//                dBservice.databaseClose();
+//                    resultSet.close();
+//                    statement.close();
+            }catch (Exception e){
+                System.out.println("Поиск id не прошел");
+            }
+        }
+        return id;
+    }
+
+    public boolean updateActive(Accounts accounts){
+        System.out.println(accounts);
+        Statement statement1 = null;
+        try {
+            statement1  = DatabaseConnection.connection.createStatement();
+            String query = "UPDATE accounts SET active = '"+accounts.getActive()+"' WHERE accounts.login = '"+accounts.getLogin()+"'";
+            statement1.executeUpdate(query);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                statement1.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("update не прошел");
+            }
+        }
+        return false;
     }
 }
 

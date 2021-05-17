@@ -60,6 +60,7 @@ public class CategoryEditForm {
         saveEditNewCotegory.setOnAction(actionEvent -> {
 //            DBservice dBservice = new DatabaseConnection();
 //            dBservice.databaseConnection();
+            String oldName = categories.getName();
             String newNameCategoryEdit = cotegoryNameEdit.getText().trim();
             if (newNameCategoryEdit.isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Категория не может быть пустой!");
@@ -73,7 +74,7 @@ public class CategoryEditForm {
                    newActiveCategory = 0;
             }
             CategoryFindID categoryFindID = new CategoryFindIDImpl();
-            int idEdit = categoryFindID.findID(newNameCategoryEdit);
+            int idEdit = categoryFindID.findID(oldName);
             System.out.println("idEdit"+idEdit);
             Categories categories1 = new Categories(idEdit, newNameCategoryEdit, newActiveCategory);
             System.out.println("categories1"+categories1);

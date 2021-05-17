@@ -1,10 +1,8 @@
 package sample.services.createNewAccountForUser.impl;
+
 import sample.models.Accounts;
-import sample.models.Users;
 import sample.services.createNewAccountForUser.CreateNewAccount;
 import sample.services.database.DatabaseConnection;
-
-import java.sql.Connection;
 import java.sql.Statement;
 
 public class CreateNewAccountImpl implements CreateNewAccount {
